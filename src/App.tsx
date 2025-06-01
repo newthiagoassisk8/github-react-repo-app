@@ -1,33 +1,53 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
+import { useEffect, useState } from 'react';
 import './App.css'
 
+interface Repo{
+  name: string;
+  description: string;
+}
 function App() {
-  const [count, setCount] = useState(0)
+  const [repos, setRepos] = useState<Repo[]>([]);
+  const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect( () => {
+    const fetchRepos = async () => {
+      try {
+        const response = await fetch('https://api.github.com/users/newthiagoassisk8/repos');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setRepos(data);
+      } catch (error) {
+        console.error('There was a problem with the fetch operation:', error);
+      }
+    };
+
+    fetchRepos();
+  })
+
+
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <h1>My Repositories</h1>
+      <input
+      name='search'
+      type='text'
+      placeholder='Search repositories...'
+      value={searchTerm}
+      onChange={(e) => setSearchTerm(e.target.value)}
+      ></input>
+      <ul>
+        {repos.map((repo) => (
+          <li key={repo.name}>
+            <h2>{repo.name}</h2>
+            <p>{repo.description}</p>
+          </li>
+        ))}
+      </ul>
+
     </>
   )
 }
