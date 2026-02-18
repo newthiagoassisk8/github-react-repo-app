@@ -1,22 +1,20 @@
-import { Navigate } from "react-router-dom";
-import { useAuth } from "../contexts/AuthContext";
-import type { ReactElement } from "react";
+import { Navigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import type { ReactElement } from 'react';
 
 interface Props {
-  children: ReactElement;
+    children: ReactElement;
 }
 
-
 const PrivateRoute = ({ children }: Props) => {
-  const { user } = useAuth();
+    const { user } = useAuth();
 
-  if (!user) {
-    // redireciona para login se não estiver logado
-    return <Navigate to="/login" />;
+    if (!user) {
+        // redireciona para login se não estiver logado
+        return <Navigate to="/login" />;
+    }
 
-  }
-
-  return children;
+    return children;
 };
 
 export default PrivateRoute;

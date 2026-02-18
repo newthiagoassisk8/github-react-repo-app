@@ -1,8 +1,7 @@
 import { createContext, useContext, useState, type ReactNode } from 'react';
-import { loginRequest } from "../integrations/api";
+import { loginRequest } from '../integrations/api';
 
-
-interface User{
+interface User {
     name: string;
     email: string;
     token: string;
@@ -22,32 +21,28 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
         try {
             const response = await loginRequest(username, password);
             if (!response) {
-                throw new Error("Login falhou");
+                throw new Error('Login falhou');
             }
-            localStorage.setItem("user", JSON.stringify(response));
+            localStorage.setItem('user', JSON.stringify(response));
             setUser(response);
         } catch (error) {
-            console.error("Erro ao fazer login:", error);
+            console.error('Erro ao fazer login:', error);
             throw error;
         }
     };
 
     const logout = () => {
-        localStorage.removeItem("user");
+        localStorage.removeItem('user');
         setUser(null);
     };
 
-    return (
-        <AuthContext.Provider value={{ user, login, logout }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
+    return <AuthContext.Provider value={{ user, login, logout }}>{children}</AuthContext.Provider>;
+};
 
 export const useAuth = () => {
     const context = useContext(AuthContext);
     if (!context) {
-        throw new Error("useAuth must be used within an AuthProvider");
+        throw new Error('useAuth must be used within an AuthProvider');
     }
     return context;
 };
