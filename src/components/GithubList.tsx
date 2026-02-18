@@ -1,16 +1,8 @@
-
-export type asd = {
-    id:number,
-    name:string,
-    full_name:string,
-    private:boolean,
-    url:string
-    description:string
-
-}
+import type {asdf} from "../types/types"
 
 
-const GithubList = ({listaRepos}: {listaRepos:asd[]}) => {
+
+const GithubList = ({listaRepos}: {listaRepos:asdf[]}) => {
 
     return(
           <ul>

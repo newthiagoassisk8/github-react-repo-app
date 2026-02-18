@@ -1,7 +1,7 @@
-import GithubList, { type asd } from "../../components/GithubList";
+import GithubList from "../../components/GithubList";
 import Search from "../../components/Search";
 import { useEffect, useState } from 'react';
-
+import { type asdf } from "../../types/types";
 
 interface Repo{
     name: string;
@@ -9,7 +9,7 @@ interface Repo{
   }
 // TODO: Aplicar e entender o hook reducer aqui
 export function Home() {
-  const [repos, setRepos] = useState<asd[]>([]);
+  const [repos, setRepos] = useState<asdf[]>([]);
 
 
     useEffect( () => {
@@ -33,7 +33,7 @@ export function Home() {
     return (
         <>
           <Search/>
-          <GithubList listaRepos={repos}/>
+          <GithubList listaRepos={repos} />
 
 
         </>
