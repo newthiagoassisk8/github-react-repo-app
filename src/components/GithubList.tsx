@@ -1,8 +1,14 @@
 import type { asdf } from '../types/types';
 
-const GithubList = ({ listaRepos }: { listaRepos: asdf[] }) => {
+type GithubListProps = {
+    listaRepos: asdf[];
+    onRepoClick: () => void;
+};
+const GithubList = ({ listaRepos, onRepoClick }: GithubListProps) => {
     return (
         <ul>
+            <button onClick={onRepoClick}>dsdsds</button>
+
             {listaRepos.map((repo) => (
                 <li key={repo.name}>
                     <h2>{repo.name}</h2>

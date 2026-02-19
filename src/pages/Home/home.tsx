@@ -10,6 +10,18 @@ interface Repo {
 // TODO: Aplicar e entender o hook reducer aqui
 export function Home() {
     const [repos, setRepos] = useState<asdf[]>([]);
+    const foo: asdf = {
+        id: 1,
+        description: 'dsdsds',
+        full_name: 'dsdsds',
+        name: '',
+        private: true,
+        url: 'https://youtube.com/canalcanalha',
+    };
+
+    function changeRepo() {
+        setRepos((prevState) => [...prevState, foo]);
+    }
 
     useEffect(() => {
         const fetchRepos = async () => {
@@ -31,8 +43,9 @@ export function Home() {
 
     return (
         <>
+            <button onClick={changeRepo}> clique aqui</button>
             <Search />
-            <GithubList listaRepos={repos} />
+            <GithubList listaRepos={repos} onRepoClick={changeRepo} />
         </>
     );
 }
